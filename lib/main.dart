@@ -9,14 +9,17 @@ const _navy = Color(0xFF202740);
 const _paper = Color(0xFFFFFAF0);
 const _green = Color(0xFF216749);
 const _deckColors = {
-  PlayerColor.red: (label: 'Red', swatch: Color(0xFFB93639)),
-  PlayerColor.blue: (label: 'Blue', swatch: Color(0xFF245B9D)),
-  PlayerColor.green: (label: 'Green', swatch: _green),
-  PlayerColor.yellow: (label: 'Yellow', swatch: Color(0xFFF3CA52)),
-  PlayerColor.coral: (label: 'Coral', swatch: Color(0xFFF18D81)),
-  PlayerColor.skyBlue: (label: 'Sky blue', swatch: Color(0xFF87C6E9)),
-  PlayerColor.mint: (label: 'Mint', swatch: Color(0xFF8ED4AC)),
-  PlayerColor.gold: (label: 'Gold', swatch: Color(0xFF976312)),
+  PlayerColor.red: (label: 'Red carriage', swatch: Color(0xFFB93639)),
+  PlayerColor.blue: (label: 'Blue plow', swatch: Color(0xFF245B9D)),
+  PlayerColor.green: (label: 'Green pump', swatch: _green),
+  PlayerColor.yellow: (label: 'Yellow pail', swatch: Color(0xFFF3CA52)),
+  PlayerColor.redPlow: (label: 'Red plow', swatch: Color(0xFFB93639)),
+  PlayerColor.bluePump: (label: 'Blue pump', swatch: Color(0xFF245B9D)),
+  PlayerColor.greenPail: (label: 'Green pail', swatch: _green),
+  PlayerColor.yellowCarriage: (
+    label: 'Yellow carriage',
+    swatch: Color(0xFFF3CA52),
+  ),
   PlayerColor.orangeHat: (label: 'Orange hat', swatch: Color(0xFFF58A2C)),
   PlayerColor.navyWheelbarrow: (
     label: 'Navy wheelbarrow',
@@ -210,6 +213,7 @@ class _ScorekeeperState extends State<Scorekeeper> {
               child: ListTile(
                 leading: PlayerBadge(index: i, color: game.playerColors[i]),
                 title: Text(game.players[i]),
+                subtitle: Text(_deckColors[game.playerColors[i]]!.label),
                 trailing: Text(
                   '${scores[i]}',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -608,9 +612,15 @@ class _RoundScreenState extends State<RoundScreen> {
                 PlayerBadge(index: index, color: widget.playerColors[index]),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(
-                    widget.players[index],
-                    style: Theme.of(context).textTheme.titleMedium,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.players[index],
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(_deckColors[widget.playerColors[index]]!.label),
+                    ],
                   ),
                 ),
               ],

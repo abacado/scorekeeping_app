@@ -3,14 +3,22 @@ enum PlayerColor {
   blue,
   green,
   yellow,
-  coral,
-  skyBlue,
-  mint,
-  gold,
+  redPlow,
+  bluePump,
+  greenPail,
+  yellowCarriage,
   orangeHat,
   navyWheelbarrow,
   pinkWateringCan,
-  purpleButterChurn,
+  purpleButterChurn;
+
+  static PlayerColor fromSavedName(String name) => switch (name) {
+    'coral' => redPlow,
+    'skyBlue' => bluePump,
+    'mint' => greenPail,
+    'gold' => yellowCarriage,
+    _ => values.byName(name),
+  };
 }
 
 class RoundScore {
@@ -126,7 +134,7 @@ class Game {
     players: List<String>.from(json['players'] as List),
     target: json['target'] as int,
     playerColors: (json['playerColors'] as List?)
-        ?.map((name) => PlayerColor.values.byName(name as String))
+        ?.map((name) => PlayerColor.fromSavedName(name as String))
         .toList(),
     rounds: [
       for (final round in json['rounds'] as List)
